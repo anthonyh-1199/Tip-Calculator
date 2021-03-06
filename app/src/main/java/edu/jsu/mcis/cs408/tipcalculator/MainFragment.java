@@ -4,12 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 public class MainFragment extends Fragment {
 
-    private TextView totalBill, tipPercentage, peopleNumber;
+    private TextInputLayout totalBill, tipPercentage, numberPeople, textOutput;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -20,11 +25,35 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        output = (TextView) view.findViewById(R.id.output);
-        view.findViewById(R.id.input).setOnClickListener(this::onClick);
+        totalBill = (TextInputLayout) view.findViewById(R.id.totalBill);
+        tipPercentage = (TextInputLayout) view.findViewById(R.id.tipPercentage);
+        numberPeople = (TextInputLayout) view.findViewById(R.id.numberPeople);
+        view.findViewById(R.id.buttonCalculate).setOnClickListener(this::onClick);
     }
 
     public void onClick(View v) {
-        output.setText("Hello, World!");
+        checkValid(totalBill);
+    }
+
+    public boolean checkValid(TextInputLayout t){
+        //Check if the input is blank, not a number, or 0
+        String s = t.getEditText().toString();
+
+        if (s == ""){
+            Toast.makeText(getActivity(), "Values cannot be blank!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (s != null && s.matches("[-+]?\\d*\\.?\\d+") == false){
+            Toast.makeText(getActivity(), "Values must be numeric!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (Integer.parseInt(s) == 0){
+            Toast.makeText(getActivity(), "Values cannot be zero!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true;
     }
 }
