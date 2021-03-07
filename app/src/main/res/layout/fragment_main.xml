@@ -19,7 +19,8 @@
             android:id="@+id/totalBill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Total Bill" />
+            android:hint="Total Bill"
+            android:textSize="24sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -36,7 +37,8 @@
             android:id="@+id/tipPercentage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tip Percentage" />
+            android:hint="Tip Percentage"
+            android:textSize="24sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -53,7 +55,8 @@
             android:id="@+id/numberPeople"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Number of People" />
+            android:hint="Number of People"
+            android:textSize="24sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
