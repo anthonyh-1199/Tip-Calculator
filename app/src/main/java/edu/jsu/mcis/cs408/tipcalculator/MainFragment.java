@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.text.NumberFormat;
 
 public class MainFragment extends Fragment {
 
@@ -32,9 +35,27 @@ public class MainFragment extends Fragment {
 
     public void onClick(View v) {
         //Check inputs for any errors
-        checkValid(totalBill);
-        checkValid(tipPercentage);
-        checkValid(numberPeople);
+        if (checkValid(totalBill) == true && checkValid(tipPercentage) == true && checkValid(numberPeople) == true){
+            //Calculate the total bill split
+            double billDouble = Double.parseDouble(totalBill.getText().toString());
+            double tipDouble = Double.parseDouble(tipPercentage.getText().toString());
+            double peopleDouble = Double.parseDouble(numberPeople.getText().toString());
+            long billSplit = (long)((billDouble + (billDouble * tipDouble / 100)) / peopleDouble);
+
+            //Convert double to a currency-valid value
+            int dollars = (int)billSplit;
+            double cents = (Math.ceil((billSplit - dollars) * 100)) / 100;
+            billSplit = (long)(dollars + cents);
+
+            //Convert double to currency format
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+            String outputString = currencyFormat.format(billSplit);
+
+            //Update the output text to show the calculate split
+            TextView output = (TextView) getView().findViewById(R.id.textOutput);
+            output.setText("Calculated split: " + billSplit);
+        }
+
     }
 
     public boolean checkValid(TextInputEditText t){
@@ -51,7 +72,7 @@ public class MainFragment extends Fragment {
             return false;
         }
 
-        if (Integer.parseInt(s) == 0){
+        if (Double.parseDouble(s) == 0){
             Toast.makeText(getActivity(), "Values cannot be zero!", Toast.LENGTH_SHORT).show();
             return false;
         }
