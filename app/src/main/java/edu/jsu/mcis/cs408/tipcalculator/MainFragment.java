@@ -40,12 +40,12 @@ public class MainFragment extends Fragment {
             double billDouble = Double.parseDouble(totalBill.getText().toString());
             double tipDouble = Double.parseDouble(tipPercentage.getText().toString());
             double peopleDouble = Double.parseDouble(numberPeople.getText().toString());
-            long billSplit = (long)((billDouble + (billDouble * tipDouble / 100)) / peopleDouble);
+            double billSplit = (double)((billDouble + (billDouble * tipDouble / 100)) / peopleDouble);
 
             //Convert double to a currency-valid value
             int dollars = (int)billSplit;
             double cents = (Math.ceil((billSplit - dollars) * 100)) / 100;
-            billSplit = (long)(dollars + cents);
+            billSplit = (double)((dollars + cents));
 
             //Convert double to currency format
             NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
@@ -53,7 +53,7 @@ public class MainFragment extends Fragment {
 
             //Update the output text to show the calculate split
             TextView output = (TextView) getView().findViewById(R.id.textOutput);
-            output.setText("Calculated split: " + billSplit);
+            output.setText("Calculated split: " + outputString);
         }
 
     }
