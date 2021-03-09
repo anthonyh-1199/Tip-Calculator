@@ -49,11 +49,11 @@ public class MainFragment extends Fragment {
 
             //Convert double to currency format
             NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
-            String outputString = currencyFormat.format(billSplit);
+            String textOutput = currencyFormat.format(billSplit);
 
             //Update the output text to show the calculate split
             TextView output = (TextView) getView().findViewById(R.id.textOutput);
-            output.setText("Calculated split: " + outputString);
+            output.setText("Calculated split: " + textOutput);
         }
 
     }
